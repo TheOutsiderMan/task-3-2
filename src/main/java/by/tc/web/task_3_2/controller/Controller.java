@@ -25,7 +25,7 @@ public class Controller extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 
-		String name = request.getParameter("name");
+		String name = request.getParameter("name");// неименованные константные строки
 		String surname = request.getParameter("surname");
 
 		PersonServiceFactory serviceFactory = PersonServiceFactory.getInstance();
