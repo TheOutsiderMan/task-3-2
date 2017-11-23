@@ -14,10 +14,12 @@ public final class MySQlConnection {
 
 	}
 
-	public static Connection getConnection() throws MySQLDAOConnectionException {
+	public static Connection getConnection() throws MySQLDAOConnectionException {// тут можно и не создавать свои исключения, т.к. исключения вне слоя не вылетит
+		
+		
 		Connection con = null;
 		try {
-			Class.forName(DB_DRIVER);
+			Class.forName(DB_DRIVER);// прикинь, сколько раз будет выжываться этот метод, и сколько раз будет гружиться класс в память?
 			con = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
 		} catch (ClassNotFoundException e) {
 			throw new MySQLDAOConnectionException(e);
