@@ -13,6 +13,7 @@ import by.tc.web.task_3_2.service.ServiceException;
 public class PersonServiceImpl implements PersonService {
 
 	public List<Person> searchPerson(String name, String surname) throws ServiceException {
+		// куда делась валидация данных в сервисе?
 		DAOFactory daoFactory = DAOFactory.getInstance();
 		PersonDAO personDAO = daoFactory.getPersonMySQLDAO();
 		List<Person> persons = null;
@@ -21,7 +22,7 @@ public class PersonServiceImpl implements PersonService {
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
-		if (persons == null) {
+		if (persons == null) {// лишняя проверка, пустоя ArrayList должен возвращать SearchPerson , если ничего не нашел
 			persons = new ArrayList<Person>();
 		}
 		return persons;

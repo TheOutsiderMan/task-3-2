@@ -21,9 +21,9 @@ public class MySQLDAOImpl implements MySQLDAO {
 		try {
 			connection = this.getConnection();
 			statement = connection.createStatement();
-			resultSet = statement.executeQuery("SELECT * FROM persons");
+			resultSet = statement.executeQuery("SELECT * FROM persons");// неименованная константная строка
 			while (resultSet.next()) {
-				String DBname = resultSet.getString("pers_name");
+				String DBname = resultSet.getString("pers_name");// неименованная константная строка
 				String DBsurname = resultSet.getString("pers_surname");
 				if (name.equalsIgnoreCase(DBname) && surname.equalsIgnoreCase(DBsurname)) {
 					Person person = new Person();
@@ -35,13 +35,14 @@ public class MySQLDAOImpl implements MySQLDAO {
 				}
 			}
 		} catch (MySQLDAOConnectionException e) {
-			throw new MySQLDAOException(e);
+			throw new MySQLDAOException(e);// лучше свои исключение выбрасывать и со своим сообдением
+			// new MySQLDAOException("почему я его тут выбрасываю", e);
 		} catch (SQLException e) {
 			throw new MySQLDAOException(e);
 		} finally {
 			try {
 				if (resultSet != null) {
-					resultSet.close();
+					resultSet.close();// если в этом close случится сключение - коннктион так и не закроется
 				}
 				if (statement != null) {
 					statement.close();
@@ -56,6 +57,8 @@ public class MySQLDAOImpl implements MySQLDAO {
 		return personList;
 	}
 
+	// лишний метод, особой смысловой нагрузки не несет
+	// да еще и public
 	public Connection getConnection() throws MySQLDAOConnectionException {
 		return MySQlConnection.getConnection();
 	}
